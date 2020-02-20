@@ -5,7 +5,7 @@ form_1 = pyaudio.paInt16  # 16-bit resolution
 chans = 1  # 1 channel
 samp_rate = 44100  # 44.1kHz sampling rate
 chunk = 4096  # 2^12 samples for buffer
-record_secs = 30  # seconds to record
+record_secs = 10  # seconds to record
 
 # the index is 2, the 1st two indices are both HDMI, I am guessing one is video and the other is audio
 # this may change if and when we add an external HD
@@ -16,7 +16,7 @@ wav_output_filename = 'test1.wav'  # name of .wav file
 audio = pyaudio.PyAudio()  # create pyaudio instantiation
 
 # create pyaudio stream
-stream = audio.open(format=form_1, rate=samp_rate, channels=chans,
+stream = audio.open(format=form_1, rate=samp_rate, channels=2,
                     input_device_index=dev_index, input=True,
                     frames_per_buffer=chunk)
 print("recording")
