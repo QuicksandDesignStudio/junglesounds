@@ -1,5 +1,12 @@
+from pathlib import Path
 import pyaudio
 import wave
+
+p = Path(__file__).parents[1]
+print(p)
+
+
+"""
 
 form_1 = pyaudio.paInt16  # 16-bit resolution
 chans = 1  # 1 channel
@@ -41,3 +48,5 @@ wavefile.setsampwidth(audio.get_sample_size(form_1))
 wavefile.setframerate(samp_rate)
 wavefile.writeframes(b''.join(frames))
 wavefile.close()
+
+"""
