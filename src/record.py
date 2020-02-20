@@ -11,7 +11,7 @@ record_secs = 10  # seconds to record
 # this may change if and when we add an external HD
 dev_index = 2  # device index found by p.get_device_info_by_index(ii)
 
-wav_output_filename = 'test1.wav'  # name of .wav file
+wav_output_filename = '../audio/test1.wav'  # name of .wav file
 
 audio = pyaudio.PyAudio()  # create pyaudio instantiation
 
