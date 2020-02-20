@@ -1,9 +1,8 @@
-from pathlib import Path
 import pyaudio
 import wave
 
 form_1 = pyaudio.paInt16  # 16-bit resolution
-chans = 1  # 1 channel
+chans = 2  # 1 channel
 samp_rate = 44100  # 44.1kHz sampling rate
 chunk = 4096  # 2^12 samples for buffer
 record_secs = 10  # seconds to record
@@ -17,7 +16,7 @@ wav_output_filename = '/home/pi/audio/test1.wav'  # name of .wav file
 audio = pyaudio.PyAudio()  # create pyaudio instantiation
 
 # create pyaudio stream
-stream = audio.open(format=form_1, rate=samp_rate, channels=2,
+stream = audio.open(format=form_1, rate=samp_rate, channels=chans,
                     input_device_index=dev_index, input=True,
                     frames_per_buffer=chunk)
 print("recording")
