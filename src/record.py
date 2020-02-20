@@ -2,12 +2,6 @@ from pathlib import Path
 import pyaudio
 import wave
 
-p = Path(__file__).parents[1]
-print(p)
-
-
-"""
-
 form_1 = pyaudio.paInt16  # 16-bit resolution
 chans = 1  # 1 channel
 samp_rate = 44100  # 44.1kHz sampling rate
@@ -18,7 +12,7 @@ record_secs = 10  # seconds to record
 # this may change if and when we add an external HD
 dev_index = 2  # device index found by p.get_device_info_by_index(ii)
 
-wav_output_filename = '../audio/test1.wav'  # name of .wav file
+wav_output_filename = '/home/pi/audio/test1.wav'  # name of .wav file
 
 audio = pyaudio.PyAudio()  # create pyaudio instantiation
 
@@ -48,5 +42,3 @@ wavefile.setsampwidth(audio.get_sample_size(form_1))
 wavefile.setframerate(samp_rate)
 wavefile.writeframes(b''.join(frames))
 wavefile.close()
-
-"""
