@@ -8,6 +8,7 @@ chunk = 4096  # 2^12 samples for buffer
 record_secs = 30  # seconds to record
 
 # the index is 2, the 1st two indices are both HDMI, I am guessing one is video and the other is audio
+# this may change if and when we add an external HD
 dev_index = 2  # device index found by p.get_device_info_by_index(ii)
 
 wav_output_filename = 'test1.wav'  # name of .wav file
