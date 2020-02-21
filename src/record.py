@@ -16,31 +16,22 @@ CHUNK = 4096  # 2^12 samples for buffer
 # this may change if and when we add an external HD
 DEV_INDEX = 2  # device index found by p.get_device_info_by_index(ii)
 
+# starting conditions
 time_now = time.time()
 wav_output_filename = str(FILE_PATH) + str(time_now) + '.wav'
 
-# Disable
-
-
-def blockPrint():
-    sys.stdout = open(os.devnull, 'w')
-
-# Restore
-
-
-def enablePrint():
-    sys.stdout = sys.__stdout__
+# record audio
 
 
 def record_audio():
     global time_now
     print("Recording File Named : " + str(time_now) + ".wav")
-    blockPrint()
     sample_into_wav()
-    enablePrint()
     print("Recording Complete")
     time_now = time.time()
     wait_to_record()
+
+# wait to record audio
 
 
 def wait_to_record():
@@ -54,6 +45,8 @@ def wait_to_record():
     time_now = time.time()
     wav_output_filename = str(FILE_PATH) + str(time_now) + '.wav'
     record_audio()
+
+# sample from the mic (SPI or I2C)
 
 
 def sample_into_wav():
