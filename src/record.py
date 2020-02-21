@@ -33,7 +33,6 @@ def wait_to_record():
     print("Waiting to record again for : " + str(WAIT_TIME) + " seconds")
     while(True):
         loop_duration = time.time() - time_now
-        print(loop_duration)
         if(loop_duration > WAIT_TIME):
             break
     print("Finished waiting for record")
