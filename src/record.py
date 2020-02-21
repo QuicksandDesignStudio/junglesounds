@@ -18,6 +18,9 @@ DEV_INDEX = 2  # device index found by p.get_device_info_by_index(ii)
 time_now = time.time()
 wav_output_filename = str(FILE_PATH) + str(time_now) + '.wav'
 
+# start by recording
+record_audio()
+
 
 def record_audio():
     global time_now
