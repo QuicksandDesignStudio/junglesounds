@@ -1,7 +1,11 @@
+import sys
+import warnings
 import pyaudio
 import wave
 import time
 
+if not sys.warnoptions:
+    warnings.simplefilter("ignore")
 
 FILE_PATH = '/home/pi/audio/'
 RECORD_TIME = 10  # seconds to record
