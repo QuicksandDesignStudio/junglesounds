@@ -1,11 +1,8 @@
 import sys
-import warnings
+import os
 import pyaudio
 import wave
 import time
-
-if not sys.warnoptions:
-    warnings.simplefilter("ignore")
 
 FILE_PATH = '/home/pi/audio/'
 RECORD_TIME = 10  # seconds to record
@@ -22,11 +19,25 @@ DEV_INDEX = 2  # device index found by p.get_device_info_by_index(ii)
 time_now = time.time()
 wav_output_filename = str(FILE_PATH) + str(time_now) + '.wav'
 
+# Disable
+
+
+def blockPrint():
+    sys.stdout = open(os.devnull, 'w')
+
+# Restore
+
+
+def enablePrint():
+    sys.stdout = sys.__stdout__
+
 
 def record_audio():
     global time_now
     print("Recording File Named : " + str(time_now) + ".wav")
+    blockPrint()
     sample_into_wav()
+    enablePrint()
     print("Recording Complete")
     time_now = time.time()
     wait_to_record()
