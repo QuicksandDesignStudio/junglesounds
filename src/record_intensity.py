@@ -108,10 +108,8 @@ def sample_into_wav():
     wavefile.close()
 
 
-# start by sampling
-argument = True
-
 # check if there was a user input
+argument = True
 try:
     sys.argv[1]
 except:
@@ -120,5 +118,6 @@ except:
 if(argument == False):
     print("This script requires a user input for threshold intensity\n If you don't know what the intensity should by try 1000")
 else:
-    TRIGGER_INTENSITY = int(sys.argv[1])
+    TRIGGER_INTENSITY = int(sys.argv[1])  # intensity is set by user input
+    # start by sampling
     sample_audio()

@@ -18,23 +18,42 @@ Copyright (c) 2020 Thejesh GN
 from prettytable import PrettyTable
 from datetime import datetime
 import os
+import sys
 
 object_list = []
-
 PATH = "audio/audio"
-x = PrettyTable()
-all_files = os.listdir(PATH)
-x.field_names = ["#", "Filename", "Filesize in KB", "Date & Time"]
 
-for i in all_files:
-    object_list.append({'name': str(i), 'size': os.path.getsize(
-        PATH+"/"+i), 'datetime': datetime.fromtimestamp(int(i.split(".")[0]))})
 
-object_list.sort(key=lambda r: r["datetime"])
+def tabulate_files():
+    global PATH, object_list
+    x = PrettyTable()
+    all_files = os.listdir(PATH)
+    x.field_names = ["#", "Filename", "Filesize in KB", "Date & Time"]
 
-counter = 1
-for i in object_list:
-    x.add_row([counter, i["name"], i["size"], i["datetime"]])
-    counter += 1
+    for i in all_files:
+        object_list.append({'name': str(i), 'size': os.path.getsize(
+            PATH+"/"+i), 'datetime': datetime.fromtimestamp(int(i.split(".")[0]))})
 
-print(x)
+    object_list.sort(key=lambda r: r["datetime"])
+
+    counter = 1
+    for i in object_list:
+        x.add_row([counter, i["name"], i["size"], i["datetime"]])
+        counter += 1
+
+    print(x)
+
+
+# check if there was a user input
+argument = True
+try:
+    sys.argv[1]
+except:
+    argument = False
+
+if(argument == False):
+    print("This script requires a user input for where the files are\n If you don't know then try the default audio/aduio")
+else:
+    PATH = sys.argv[1]  # path is set by user input
+    # tabulate
+    tabulate_files()
