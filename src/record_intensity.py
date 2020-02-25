@@ -13,7 +13,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 Copyright (c) 2018 Joshua Hrisko
 Copyright (c) 2020 Romit Raj
-Copyright (c) 2020 Thejesh GN 
+Copyright (c) 2020 Thejesh GN
 """
 
 import sys
@@ -40,7 +40,7 @@ DEV_INDEX = 2  # device index found by p.get_device_info_by_index(ii)
 time_now = time.time()
 wav_output_filename = str(FILE_PATH) + str(time_now) + '.wav'
 
-# record audio
+#   record audio
 
 
 def record_audio():
@@ -50,7 +50,9 @@ def record_audio():
     print("Recording Complete")
     time_now = time.time()
     sample_audio()
-# sample audio to check for intensity
+
+
+#  sample audio to check for intensity
 
 
 def sample_audio():
@@ -76,6 +78,8 @@ def sample_audio():
     else:
         print("Waiting for recording to be triggered")
         sample_audio()
+
+
 # sample from the mic (SPI or I2C)
 
 
@@ -105,4 +109,16 @@ def sample_into_wav():
 
 
 # start by sampling
-sample_audio()
+argument = True
+
+# check if there was a user input
+try:
+    sys.argv[1]
+except:
+    argument = False
+
+if(argument == False):
+    print("This script requires a user input for threshold intensity\n If you don't know what the intensity should by try 1000")
+else:
+    TRIGGER_INTENSITY = sys.argv[1]
+    sample_audio()
