@@ -120,5 +120,5 @@ except:
 if(argument == False):
     print("This script requires a user input for threshold intensity\n If you don't know what the intensity should by try 1000")
 else:
-    TRIGGER_INTENSITY = sys.argv[1]
+    TRIGGER_INTENSITY = int(sys.argv[1])
     sample_audio()
