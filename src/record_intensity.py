@@ -26,7 +26,7 @@ import audioop
 FILE_PATH = '/home/pi/audio/'
 RECORD_TIME = 10  # seconds to record
 WAIT_TIME = 1  # seconds to wait in between recordings
-SAMPLE_TIME = 1  # seconds to sample
+SAMPLE_TIME = 0.5  # seconds to sample
 FORM_1 = pyaudio.paInt16  # 16-bit resolution
 CHANS = 1  # 1 channel
 SAMPLE_RATE = 44100  # 44.1kHz sampling rate
@@ -78,8 +78,10 @@ def sample_audio():
         rms = audioop.rms(data, 2)
         print(rms)
     time_now = time.time()
-    wait_to_sample()
-
+    stream.stop_stream()
+    stream.close()
+    audio.terminate()
+    sample_audio()
 # sample from the mic (SPI or I2C)
 
 
