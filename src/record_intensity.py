@@ -30,6 +30,7 @@ FORM_1 = pyaudio.paInt16  # 16-bit resolution
 CHANS = 1  # 1 channel
 SAMPLE_RATE = 44100  # 44.1kHz sampling rate
 CHUNK = 4096  # 2^12 samples for buffer
+TRIGGER_INTENSITY = 1000
 
 # the index is 2, the 1st two indices are both HDMI, I am guessing one is video and the other is audio
 # this may change if and when we add an external HD
@@ -54,6 +55,7 @@ def record_audio():
 
 def sample_audio():
     global time_now, SAMPLE_TIME
+    intensityHigh = False
     audio = pyaudio.PyAudio()  # create pyaudio instantiation
     stream = audio.open(format=FORM_1, rate=SAMPLE_RATE, channels=CHANS,
                         input_device_index=DEV_INDEX, input=True,
@@ -62,12 +64,16 @@ def sample_audio():
     for i in range(0, int(SAMPLE_RATE / CHUNK * SAMPLE_TIME)):
         data = stream.read(CHUNK)
         rms = audioop.rms(data, 2)
-        print(rms)
+        if(rms > TRIGGER_INTENSITY):
+            intensityHigh = True
     time_now = time.time()
     stream.stop_stream()
     stream.close()
     audio.terminate()
-    sample_audio()
+    if(intensityHigh):
+        record_audio()
+    else:
+        sample_audio()
 # sample from the mic (SPI or I2C)
 
 
