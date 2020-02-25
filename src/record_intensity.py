@@ -25,7 +25,6 @@ import audioop
 
 FILE_PATH = '/home/pi/audio/'
 RECORD_TIME = 10  # seconds to record
-WAIT_TIME = 1  # seconds to wait in between recordings
 SAMPLE_TIME = 0.5  # seconds to sample
 FORM_1 = pyaudio.paInt16  # 16-bit resolution
 CHANS = 1  # 1 channel
@@ -50,20 +49,7 @@ def record_audio():
     print("Recording Complete")
     time_now = time.time()
 
-# wait to record audio
-
-
-def wait_to_sample():
-    global time_now, WAIT_TIME, wav_output_filename
-    print("Waiting to record again for : " + str(WAIT_TIME) + " seconds")
-    while(True):
-        loop_duration = time.time() - time_now
-        if(loop_duration > WAIT_TIME):
-            break
-    print("Finished waiting for record")
-    time_now = time.time()
-    wav_output_filename = str(FILE_PATH) + str(time_now) + '.wav'
-    sample_audio()
+# sample audio to check for intensity
 
 
 def sample_audio():
