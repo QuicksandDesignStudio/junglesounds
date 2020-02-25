@@ -49,12 +49,12 @@ def record_audio():
     sample_into_wav()
     print("Recording Complete")
     time_now = time.time()
-
+    sample_audio()
 # sample audio to check for intensity
 
 
 def sample_audio():
-    global time_now, SAMPLE_TIME
+    global time_now, SAMPLE_TIME, wav_output_filename
     intensityHigh = False
     audio = pyaudio.PyAudio()  # create pyaudio instantiation
     stream = audio.open(format=FORM_1, rate=SAMPLE_RATE, channels=CHANS,
@@ -66,13 +66,15 @@ def sample_audio():
         rms = audioop.rms(data, 2)
         if(rms > TRIGGER_INTENSITY):
             intensityHigh = True
-    time_now = time.time()
     stream.stop_stream()
     stream.close()
     audio.terminate()
     if(intensityHigh):
+        time_now = time.time()
+        wav_output_filename = str(FILE_PATH) + str(time_now) + '.wav'
         record_audio()
     else:
+        print("Waiting for recording to be triggered")
         sample_audio()
 # sample from the mic (SPI or I2C)
 
