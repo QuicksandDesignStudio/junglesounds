@@ -23,8 +23,8 @@ import wave
 import time
 
 FILE_PATH = '/home/pi/audio/'
-RECORD_TIME = 10  # seconds to record
-WAIT_TIME = 10  # seconds to wait in between recordings
+RECORD_TIME = 5  # seconds to record
+WAIT_TIME = 1  # seconds to wait in between recordings
 FORM_1 = pyaudio.paInt16  # 16-bit resolution
 CHANS = 1  # 1 channel
 SAMPLE_RATE = 44100  # 44.1kHz sampling rate
