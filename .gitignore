@@ -3,3 +3,5 @@ waves/
 audio/
 commands.txt
 audio_archive/
+junglesounds_venv/
+__pycache__
