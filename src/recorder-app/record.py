@@ -41,6 +41,54 @@ wav_output_filename = str(FILE_PATH) + str(time_now) + '.wav'
 # record audio
 
 
+def sample_into_wav(wav_output_filename):
+    audio = pyaudio.PyAudio()  # create pyaudio instantiation
+    stream = audio.open(format=FORM_1, rate=SAMPLE_RATE, channels=CHANS,
+                        input_device_index=DEV_INDEX, input=True,
+                        frames_per_buffer=CHUNK)
+    frames = []
+    # loop through stream and append audio chunks to frame array
+    for ii in range(0, int((SAMPLE_RATE/CHUNK)*RECORD_TIME)):
+        data = stream.read(CHUNK)
+        frames.append(data)
+
+    # stop the stream, close it, and terminate the pyaudio instantiation
+    stream.stop_stream()
+    stream.close()
+    audio.terminate()
+
+    # save the audio frames as .wav file
+    wavefile = wave.open(wav_output_filename, 'wb')
+    wavefile.setnchannels(CHANS)
+    wavefile.setsampwidth(audio.get_sample_size(FORM_1))
+    wavefile.setframerate(SAMPLE_RATE)
+    wavefile.writeframes(b''.join(frames))
+    wavefile.close()
+
+
+def wait_to_record():
+    global time_now, WAIT_TIME, wav_output_filename
+    print("Waiting to record again for : " + str(WAIT_TIME) + " seconds")
+    while(True):
+        loop_duration = time.time() - time_now
+        if(loop_duration > WAIT_TIME):
+            break
+    print("Finished waiting for record")
+
+
+def iterative_record():
+    for i in range(100000):
+        time_now = time.time()
+        print("Recording File Named : " + str(time_now) + ".wav")
+        wav_output_filename = str(FILE_PATH) + str(time_now) + '.wav'
+        sample_into_wav(wav_output_filename)
+        wait_to_record()
+
+
+# start by recording
+iterative_record()
+
+"""
 def record_audio():
     global time_now
     print("Recording File Named : " + str(time_now) + ".wav")
@@ -94,3 +142,4 @@ def sample_into_wav():
 
 # start by recording
 record_audio()
+"""
