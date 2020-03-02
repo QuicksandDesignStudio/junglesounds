@@ -38,8 +38,6 @@ DEV_INDEX = 2  # device index found by p.get_device_info_by_index(ii)
 time_now = time.time()
 wav_output_filename = str(FILE_PATH) + str(time_now) + '.wav'
 
-# record audio
-
 
 def sample_into_wav(wav_output_filename):
     audio = pyaudio.PyAudio()  # create pyaudio instantiation
@@ -88,6 +86,7 @@ def iterative_record():
 # start by recording
 iterative_record()
 
+# Obsolete Recursive Record - Recursion limit issue
 """
 def record_audio():
     global time_now
