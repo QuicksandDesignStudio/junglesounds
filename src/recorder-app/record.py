@@ -22,6 +22,7 @@ import pyaudio
 import wave
 import time
 
+MAX_RECORD_TIME = 8  # in hours
 FILE_PATH = '/home/pi/audio/'
 RECORD_TIME = 5  # seconds to record
 WAIT_TIME = 1  # seconds to wait in between recordings
@@ -75,7 +76,7 @@ def wait_to_record():
 
 
 def iterative_record():
-    for i in range(100000):
+    for i in range(int((60 / (RECORD_TIME + WAIT_TIME)) * 60 * MAX_RECORD_TIME)):
         time_now = time.time()
         print("Recording File Named : " + str(time_now) + ".wav")
         wav_output_filename = str(FILE_PATH) + str(time_now) + '.wav'
