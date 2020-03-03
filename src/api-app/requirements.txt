@@ -1,6 +1,6 @@
 flask-bcrypt
-flask-restplus
 Flask-Migrate
 pyjwt
 Flask-Script
 flask_testing
+flask-restful
