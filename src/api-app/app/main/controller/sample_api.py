@@ -1,21 +1,21 @@
 from flask import Flask
+from flask import current_app as app
+
 from flask_restful import reqparse, abort, Api, Resource
 from flask_restful import fields, marshal_with
 
 from app.main.start import db
 from app.main.model import category, user, sample, classification
+from app.main.helpers.utils import abort_if_doesnt_exist,  not_supported
 
-def abort_if_sample_doesnt_exist(sample_id):
-    if sample_id not in SAMPLES:
-        abort(404, message="Todo {} doesn't exist".format(sample_id))
+import werkzeug
+import os
 
-
-def not_supported():
-        abort(501, message="Not implemented yet")
 
 
 parser = reqparse.RequestParser()
 parser.add_argument('sample_file_name')
+parser.add_argument('sample_audio', type=werkzeug.datastructures.FileStorage, location='files')
 
 
 user_fields = {
@@ -59,7 +59,7 @@ class Sample(Resource):
         if s:
             return s
         else:
-            abort_if_sample_doesnt_exist(sample_id)
+            abort_if_doesnt_exist(sample_id)
 
     def delete(self, sample_id):
         not_supported()
@@ -78,6 +78,10 @@ class SampleList(Resource):
     def post(self):
         args = parser.parse_args()
         sample_file_name = args['sample_file_name']
+        sample_audio = args['sample_audio']
+        saved_path = os.path.join(app.config['SAMPLE_AUDIO_UPLOAD_FOLDER'], sample_file_name)
+        sample_audio.save(saved_path)
+
         #TODO: We will also read the file from request and save it
         no_of_reviews = 0
         s = sample.Sample()
