@@ -64,7 +64,7 @@ def sample_audio():
                         frames_per_buffer=CHUNK)
 
     for i in range(0, int(SAMPLE_RATE / CHUNK * SAMPLE_TIME)):
-        data = stream.read(CHUNK)
+        data = stream.read(CHUNK, exception_on_overflow=False)
         rms = audioop.rms(data, 2)
         if(rms > TRIGGER_INTENSITY):
             intensityHigh = True
