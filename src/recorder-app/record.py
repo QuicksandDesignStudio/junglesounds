@@ -51,7 +51,7 @@ def sample_into_wav(wav_output_filename):
         data = stream.read(CHUNK, exception_on_overflow=False)
         frames.append(data)
 
-    # stop the stream, close it, and terminate the pyaudio instantiation
+    # stop the stream, close it, and terminate the pyaudio instance
     stream.stop_stream()
     stream.close()
     audio.terminate()
