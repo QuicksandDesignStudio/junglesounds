@@ -30,20 +30,73 @@ We have not added an API to this yet. PLease add to the DB directly. As of now i
 ```
 
 ## Category
+
 ### Add category
+
 POST <base_url>/categories
 
-send
+Parameters
 
 category=Elephant
 slug=elephant
 
+### Get all categories
+
+GET <base_url>/categories
+
+
+### Get a single category
+GET <base_url>/category/<category_id>
 
 
 ## Sample
+### Add Sample
+
+POST <base_url>/samples
+
+Parameters
+
+sample_audio=Multipart audio file
+
+
+### Get all Samples
+
+GET <base_url>/samples
+
+Get the first 10 samples
+
+
+### Get a single sample
+GET <base_url>/sample/<sample_id>
+
 
 
 ## Classification
+### Add Classification
+
+POST <base_url>/classifications
+
+Parameters
+
+sample_id=
+user_id=
+category_id=
+start_time=
+end_time=
+
+
+### Get all Classification
+
+GET <base_url>/classifications
+
+Get the first 10 samples
+
+
+### Get a single sample
+
+GET <base_url>/classification/<classification_id>
+
 
 
 ## Prediction
+Yet to be done
