@@ -48,7 +48,7 @@ def sample_into_wav(wav_output_filename):
     frames = []
     # loop through stream and append audio chunks to frame array
     for ii in range(0, int((SAMPLE_RATE/CHUNK)*RECORD_TIME)):
-        data = stream.read(CHUNK)
+        data = stream.read(CHUNK, exception_on_overflow=False)
         frames.append(data)
 
     # stop the stream, close it, and terminate the pyaudio instantiation
