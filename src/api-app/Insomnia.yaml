@@ -1,0 +1,271 @@
+_type: export
+__export_format: 4
+__export_date: 2020-03-03T18:51:20.043Z
+__export_source: insomnia.desktop.app:v7.1.1
+resources:
+  - _id: req_84e61d288a8c46f2aa3b3375a00ecc52
+    authentication: {}
+    body: {}
+    created: 1583257160587
+    description: ""
+    headers: []
+    isPrivate: false
+    metaSortKey: -1583257252923
+    method: GET
+    modified: 1583261372326
+    name: Get Samples
+    parameters: []
+    parentId: fld_c4527fe794c240e2ac5e3bde37a6fd18
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://localhost:5000/samples
+    _type: request
+  - _id: fld_c4527fe794c240e2ac5e3bde37a6fd18
+    created: 1583261363056
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1583261363056
+    modified: 1583261363056
+    name: Sample
+    parentId: wrk_aa3d22a2834d46ef873b1beca0b54bcb
+    _type: request_group
+  - _id: wrk_aa3d22a2834d46ef873b1beca0b54bcb
+    created: 1583256935332
+    description: ""
+    modified: 1583256935332
+    name: JungleSounds
+    parentId: null
+    _type: workspace
+  - _id: req_bf576b11911a4e25b4ee52e0e4d1a6f8
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          fileName: /home/thej/Downloads/great_east_asia_conf.mp3
+          id: pair_c8eea8dee64240589622c3cfad60d8da
+          name: sample_audio
+          type: file
+          value: ""
+    created: 1583257252873
+    description: ""
+    headers:
+      - id: pair_face18c47efb4e3f9049ba606523b57d
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1583257252873
+    method: POST
+    modified: 1583261368202
+    name: Add a Sample
+    parameters: []
+    parentId: fld_c4527fe794c240e2ac5e3bde37a6fd18
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://localhost:5000/samples
+    _type: request
+  - _id: req_6bbabf06c23349c49f0785fe31a7ec23
+    authentication: {}
+    body: {}
+    created: 1583257218472
+    description: ""
+    headers: []
+    isPrivate: false
+    metaSortKey: -1583257252823
+    method: GET
+    modified: 1583261370503
+    name: Get Single Sample
+    parameters: []
+    parentId: fld_c4527fe794c240e2ac5e3bde37a6fd18
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://localhost:5000/sample/1
+    _type: request
+  - _id: req_253a4f5cebda4039813f3a7b827c5acc
+    authentication: {}
+    body: {}
+    created: 1583257305097
+    description: ""
+    headers: []
+    isPrivate: false
+    metaSortKey: -1583261313638.5
+    method: GET
+    modified: 1583261351317
+    name: Get Calssifications
+    parameters:
+      - description: ""
+        id: pair_730f958494174b7b9acf2d6abe5e25ba
+        name: ""
+        value: ""
+    parentId: fld_9d500ed456e0426081b06753d38e855e
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://localhost:5000/classifications
+    _type: request
+  - _id: fld_9d500ed456e0426081b06753d38e855e
+    created: 1583261336487
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1583261336487
+    modified: 1583261336487
+    name: Classification
+    parentId: wrk_aa3d22a2834d46ef873b1beca0b54bcb
+    _type: request_group
+  - _id: req_6848caf9644c4154935a78684328a79b
+    authentication: {}
+    body: {}
+    created: 1583257554633
+    description: ""
+    headers: []
+    isPrivate: false
+    metaSortKey: -1583261313613.5
+    method: GET
+    modified: 1583261354678
+    name: Get Single Classification
+    parameters: []
+    parentId: fld_9d500ed456e0426081b06753d38e855e
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://localhost:5000/classification/1
+    _type: request
+  - _id: req_86cb2496319b48f08da91b2556b4206d
+    authentication: {}
+    body: {}
+    created: 1583257441304
+    description: ""
+    headers: []
+    isPrivate: false
+    metaSortKey: -1583261313588.5
+    method: POST
+    modified: 1583261345443
+    name: Add Classifications
+    parameters:
+      - description: ""
+        id: pair_12f54145aa9847e3b89958db5cfe82c8
+        name: sample_id
+        value: "1"
+      - description: ""
+        id: pair_9437a0925d344f91989000e608e0c06d
+        name: category_id
+        value: "2"
+      - description: ""
+        id: pair_2f5bfd7680604067a26ea55a625fe813
+        name: user_id
+        value: "2"
+      - description: ""
+        id: pair_83b1f29d225446078b195b93eabffe72
+        name: start_time
+        value: "9.55"
+      - description: ""
+        id: pair_706c976827114027a51f3e0059ee0d4a
+        name: end_time
+        value: "8.66"
+    parentId: fld_9d500ed456e0426081b06753d38e855e
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://localhost:5000/classifications
+    _type: request
+  - _id: req_7c0f4306c0e54517890c29db180e1494
+    authentication: {}
+    body: {}
+    created: 1583256942942
+    description: ""
+    headers: []
+    isPrivate: false
+    metaSortKey: -1583257021533
+    method: GET
+    modified: 1583261275163
+    name: Get Categories
+    parameters: []
+    parentId: fld_59c5cd14d20944a2b82f3ef7a13957dc
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://localhost:5000/categories
+    _type: request
+  - _id: fld_59c5cd14d20944a2b82f3ef7a13957dc
+    created: 1583261244893
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1583261244893
+    modified: 1583261244893
+    name: Category
+    parentId: wrk_aa3d22a2834d46ef873b1beca0b54bcb
+    _type: request_group
+  - _id: req_accc67ec824e4d758025292cb1f77187
+    authentication: {}
+    body: {}
+    created: 1583257021483
+    description: ""
+    headers: []
+    isPrivate: false
+    metaSortKey: -1583257021483
+    method: POST
+    modified: 1583261248278
+    name: Add Category
+    parameters:
+      - description: ""
+        id: pair_ec560c5ac3d84d9398ce275934f8f418
+        name: category
+        value: Ant2
+      - description: ""
+        id: pair_392d7d0195f44a389fef0cd1db6ac4da
+        name: slug
+        value: ant2
+    parentId: fld_59c5cd14d20944a2b82f3ef7a13957dc
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://localhost:5000/categories
+    _type: request
+  - _id: env_eb02c87fb4426c2394a22c7c2aee7e8a01e49a4a
+    color: null
+    created: 1583256935435
+    data: {}
+    dataPropertyOrder: null
+    isPrivate: false
+    metaSortKey: 1583256935435
+    modified: 1583256935435
+    name: Base Environment
+    parentId: wrk_aa3d22a2834d46ef873b1beca0b54bcb
+    _type: environment
+  - _id: jar_eb02c87fb4426c2394a22c7c2aee7e8a01e49a4a
+    cookies: []
+    created: 1583256935446
+    modified: 1583256935446
+    name: Default Jar
+    parentId: wrk_aa3d22a2834d46ef873b1beca0b54bcb
+    _type: cookie_jar

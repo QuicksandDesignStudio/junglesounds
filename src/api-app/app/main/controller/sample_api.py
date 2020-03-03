@@ -14,7 +14,6 @@ import uuid
 
 
 parser = reqparse.RequestParser()
-#parser.add_argument('sample_file_name')
 parser.add_argument('sample_audio', type=werkzeug.datastructures.FileStorage, location='files')
 
 
