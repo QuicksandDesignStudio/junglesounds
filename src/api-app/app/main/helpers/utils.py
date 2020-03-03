@@ -13,6 +13,9 @@ def not_supported():
 def resource_exists():
     abort(409, message="Resource already exists")    
 
+def validation_error(message):
+    abort(500, message=message)    
+
 
 def getHashOfFile(filename):
 	return hashlib.md5(open(filename,'rb').read()).hexdigest()

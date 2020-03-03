@@ -15,7 +15,8 @@ import uuid
 
 parser = reqparse.RequestParser()
 parser.add_argument('sample_audio', type=werkzeug.datastructures.FileStorage, location='files')
-
+parser.add_argument('no_of_reviews')
+parser.add_argument('limit')
 
 user_fields = {
     'id':fields.Integer,
@@ -71,8 +72,19 @@ class Sample(Resource):
 class SampleList(Resource):
     @marshal_with(sample_list_fields)
     def get(self):
-        #TODO: We will improve this later
-        return {"samples": sample.Sample.query.filter().limit(10)}
+        args = parser.parse_args()
+        no_of_reviews = 0
+        limit = 10
+        if 'limit' in args and args['limit']:
+            limit = int(args['limit'])
+
+        if 'no_of_reviews' in args and args['no_of_reviews']:
+            no_of_reviews = int(args['no_of_reviews'])
+            return {"samples": sample.Sample.query.filter_by(no_of_reviews=no_of_reviews).limit(limit)}
+        
+        return {"samples": sample.Sample.query.filter().limit(limit)}           
+
+
 
     @marshal_with(sample_fields)
     def post(self):

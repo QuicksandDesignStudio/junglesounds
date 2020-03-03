@@ -5,7 +5,7 @@ from flask_restful import fields, marshal_with
 from app.main.start import db
 from app.main.model import category, user, sample, classification
 
-from app.main.helpers.utils import abort_if_doesnt_exist,  not_supported
+from app.main.helpers.utils import abort_if_doesnt_exist,  not_supported, validation_error
 
 parser = reqparse.RequestParser()
 parser.add_argument('sample_id')
@@ -76,6 +76,14 @@ class ClassificationList(Resource):
         start_time = args['start_time']
         end_time = args['end_time']
         user_id = args['user_id']
+
+        q = sample.Sample.query.filter_by(id=sample_id).first()
+        if q:
+            q.no_of_reviews = q.no_of_reviews + 1
+        else:
+            validation_error("Sample doesnt exist")
+
+
         #TODO: We will also read the file from request and save it
         s = classification.Classification()
         s.sample_id = sample_id
@@ -88,6 +96,7 @@ class ClassificationList(Resource):
         no_of_reviews = 0
 
         db.session.add(s)
+        #db.session.add(q)
         db.session.commit()
         return s
 
