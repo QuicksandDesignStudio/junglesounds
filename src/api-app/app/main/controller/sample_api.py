@@ -6,15 +6,15 @@ from flask_restful import fields, marshal_with
 
 from app.main.start import db
 from app.main.model import category, user, sample, classification
-from app.main.helpers.utils import abort_if_doesnt_exist,  not_supported
+from app.main.helpers.utils import abort_if_doesnt_exist,  not_supported, getHashOfFile, resource_exists, deleteFile
 
 import werkzeug
 import os
-
+import uuid
 
 
 parser = reqparse.RequestParser()
-parser.add_argument('sample_file_name')
+#parser.add_argument('sample_file_name')
 parser.add_argument('sample_audio', type=werkzeug.datastructures.FileStorage, location='files')
 
 
@@ -42,6 +42,7 @@ sample_fields = {
     'id':   fields.Integer,
     'sample_file_name':   fields.String,
     'classifications': fields.List(fields.Nested(classification_fields)),
+    'file_hash': fields.String,
     'no_of_reviews':fields.Integer
 }
 
@@ -77,16 +78,28 @@ class SampleList(Resource):
     @marshal_with(sample_fields)
     def post(self):
         args = parser.parse_args()
-        sample_file_name = args['sample_file_name']
         sample_audio = args['sample_audio']
-        saved_path = os.path.join(app.config['SAMPLE_AUDIO_UPLOAD_FOLDER'], sample_file_name)
+
+        #create a unique name and save the file
+        file_name = str(uuid.uuid4())+".wav"
+        saved_path = os.path.join(app.config['SAMPLE_AUDIO_UPLOAD_FOLDER'], file_name)
         sample_audio.save(saved_path)
 
-        #TODO: We will also read the file from request and save it
+        #get the hash of the file and error out if it already exists
+        file_hash = getHashOfFile(saved_path)
+        s = sample.Sample.query.filter_by(file_hash=file_hash).first()
+        if s:
+            deleteFile(saved_path)
+            resource_exists()
+
+        #TODO:move to S3 in production
+
+        #add to db
         no_of_reviews = 0
         s = sample.Sample()
-        s.sample_file_name = sample_file_name
+        s.sample_file_name = file_name
         s.no_of_reviews = no_of_reviews
+        s.file_hash = file_hash
         db.session.add(s)
         db.session.commit()
         return s
