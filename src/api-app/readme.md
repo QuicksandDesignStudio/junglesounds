@@ -33,77 +33,81 @@ We have not added an API to this yet. PLease add to the DB directly. As of now i
 
 ### Add category
 
-POST <base_url>/categories
+- POST <base_url>/categories
 
 Parameters
 
-category=Elephant
-slug=elephant
+- category=Elephant
+- slug=elephant
 
 ### Get all categories
 
-GET <base_url>/categories
+- GET <base_url>/categories
 
 
 ### Get a single category
-GET <base_url>/category/<category_id>
+
+- GET <base_url>/category/<category_id>
 
 
 ## Sample
+
 ### Add Sample
 
-POST <base_url>/samples
+- POST <base_url>/samples
 
 Parameters
 
-sample_audio=Multipart audio file
+- sample_audio=Multipart audio file
 
 
 ### Get all Samples
 
-GET <base_url>/samples
+- GET <base_url>/samples
 
 Parameters
-no_of_reviews = how many classification reviews this sample has had. If you want to classifiy the freshly uploaded one, use 0. Default is None. it gets all
-limit = how many to get, default 10
+
+- no_of_reviews = how many classification reviews this sample has had. If you want to classifiy the freshly uploaded one, use 0. Default is None. it gets all
+- limit = how many to get, default 10
 
 And
 
-If the API retunes only the file name `sample_file_name`
-Actual file url will be <base_url>/download<sample_file_name>
+- If the API retunes only the file name `sample_file_name`
+- Actual file url will be <base_url>/download<sample_file_name>
 
 
 ### Get a single sample
-GET <base_url>/sample/<sample_id>
+
+- GET <base_url>/sample/<sample_id>
 
 
 
 ## Classification
 ### Add Classification
 
-POST <base_url>/classifications
+- POST <base_url>/classifications
 
 Parameters
 
-sample_id=
-user_id=
-category_id=
-start_time=
-end_time=
+- sample_id=
+- user_id=
+- category_id=
+- start_time=
+- end_time=
 
 
 ### Get all Classification
 
-GET <base_url>/classifications
+- GET <base_url>/classifications
 
-Get the first 10 samples
+- Get the first 10 samples
 
 
 ### Get a single sample
 
-GET <base_url>/classification/<classification_id>
+- GET <base_url>/classification/<classification_id>
 
 
 
 ## Prediction
-Yet to be done
+- Yet to be done
