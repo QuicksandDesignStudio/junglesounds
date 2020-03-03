@@ -19,9 +19,13 @@ def create_app(config_name):
 	
 	from .controller import sample_api
 	from .controller import category_api
+	from .controller import classification_api
 
 	api.add_resource(sample_api.Sample, '/sample/<string:sample_id>')
 	api.add_resource(sample_api.SampleList, '/samples')
 	api.add_resource(category_api.Category, '/category/<string:category_id>')
 	api.add_resource(category_api.CategoryList, '/categories')
+	api.add_resource(classification_api.Classification, '/classification/<string:classification_id>')
+	api.add_resource(classification_api.ClassificationList, '/classifications')
+
 	return app

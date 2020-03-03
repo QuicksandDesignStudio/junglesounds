@@ -3,7 +3,7 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-dbdir = os.path.join(basedir, "../../database")
+dbdir = os.path.join(basedir, "../../data")
 
 print(basedir)
 

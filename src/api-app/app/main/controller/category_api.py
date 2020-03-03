@@ -52,7 +52,7 @@ class CategoryList(Resource):
         no_of_reviews = 0
         c = category.Category()
         c.category = category_name
-        c.slug = slug
+        c.slug = category_slug
         db.session.add(c)
         db.session.commit()
         return c
