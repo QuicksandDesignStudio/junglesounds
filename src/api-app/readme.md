@@ -67,7 +67,10 @@ Parameters
 no_of_reviews = how many classification reviews this sample has had. If you want to classifiy the freshly uploaded one, use 0. Default is None. it gets all
 limit = how many to get, default 10
 
+And
 
+If the API retunes only the file name `sample_file_name`
+Actual file url will be <base_url>/download<sample_file_name>
 
 
 ### Get a single sample
