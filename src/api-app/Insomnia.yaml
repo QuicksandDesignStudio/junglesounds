@@ -1,6 +1,6 @@
 _type: export
 __export_format: 4
-__export_date: 2020-03-03T18:51:20.043Z
+__export_date: 2020-03-03T19:21:32.209Z
 __export_source: insomnia.desktop.app:v7.1.1
 resources:
   - _id: req_84e61d288a8c46f2aa3b3375a00ecc52
@@ -12,9 +12,13 @@ resources:
     isPrivate: false
     metaSortKey: -1583257252923
     method: GET
-    modified: 1583261372326
+    modified: 1583263171907
     name: Get Samples
-    parameters: []
+    parameters:
+      - description: ""
+        id: pair_e5e65807a7b94e468a7a733731d37ed7
+        name: no_of_reviews
+        value: "1"
     parentId: fld_c4527fe794c240e2ac5e3bde37a6fd18
     settingDisableRenderRequestBody: false
     settingEncodeUrl: true
@@ -222,6 +226,27 @@ resources:
     name: Category
     parentId: wrk_aa3d22a2834d46ef873b1beca0b54bcb
     _type: request_group
+  - _id: req_8cce7e668cc941b1bd7a0657d7ac0b12
+    authentication: {}
+    body: {}
+    created: 1583261887852
+    description: ""
+    headers: []
+    isPrivate: false
+    metaSortKey: -1583257021508
+    method: GET
+    modified: 1583261934335
+    name: Get Single Category
+    parameters: []
+    parentId: fld_59c5cd14d20944a2b82f3ef7a13957dc
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://localhost:5000/category/1
+    _type: request
   - _id: req_accc67ec824e4d758025292cb1f77187
     authentication: {}
     body: {}
@@ -231,17 +256,17 @@ resources:
     isPrivate: false
     metaSortKey: -1583257021483
     method: POST
-    modified: 1583261248278
+    modified: 1583261929091
     name: Add Category
     parameters:
       - description: ""
         id: pair_ec560c5ac3d84d9398ce275934f8f418
         name: category
-        value: Ant2
+        value: Ant
       - description: ""
         id: pair_392d7d0195f44a389fef0cd1db6ac4da
         name: slug
-        value: ant2
+        value: ant
     parentId: fld_59c5cd14d20944a2b82f3ef7a13957dc
     settingDisableRenderRequestBody: false
     settingEncodeUrl: true
