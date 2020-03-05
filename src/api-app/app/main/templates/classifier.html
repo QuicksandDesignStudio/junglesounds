@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="description"
+      content="A workbook to engage with wicked problems as a designer, through design research"
+    />
+    <!--  Social Media and Sharing Metadata -->
+    <meta property="og:title" content="Design Research Notes" />
+    <meta
+      property="og:description"
+      content="A workbook to engage with wicked problems as a designer, through design research"
+    />
+    <meta
+      property="og:image"
+      content="http://designresearchnotes.com/img/thumbnail.jpg"
+    />
+    <meta
+      property="og:url"
+      content="http://designresearchnotes.com/index.html"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:site_name" content="Design Research Notes" />
+    <meta name="twitter:image:alt" content="Design Research Notes" />
+    <!--  -->
+    <title>Jungle Sounds - Audio Classifier</title>
+    <link rel="icon" type="image/png" href="img/icon.png" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main_V01.css') }}" />
+  </head>
+  <body>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <div class="container-fluid">
+      <div class="header">
+        <h1>Jungle Sounds - Audio Classifier</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+          pharetra placerat libero, nec posuere diam accumsan id. Duis rhoncus
+          vel enim laoreet commodo. Praesent sed justo leo. Duis dapibus est eu
+          varius luctus. Sed efficitur ex id odio semper, ac mollis elit
+          sodales. Nam venenatis lectus odio, semper lacinia felis lobortis
+          vitae. Praesent a semper urna, eget venenatis justo.
+        </p>
+        <p>
+          Press <span class="underline">Space</span> to pause and play
+          <br />Press <span class="underline">S</span> to start marking and
+          <span class="underline">S</span> again to stop marking<br />Use arrow
+          keys <span class="underline">(←/→)</span> to jump through the audio
+        </p>
+      </div>
+      <div class="audio_player">
+        <audio controls id="player">
+          <source src="1582709239.1903648.wav" type="audio/wav" />
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      <div id="marking">TAGGING</div>
+      <div class="tags">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Start</th>
+              <th scope="col">End</th>
+              <th scope="col">Tag</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody id="tag_table"></tbody>
+        </table>
+      </div>
+      <div class="submit">
+        <button type="button" class="btn btn-success" onclick="Submit()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

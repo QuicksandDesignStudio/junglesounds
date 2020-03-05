@@ -1,0 +1,43 @@
+html,
+body {
+  font-family: "Crimson Text", serif;
+}
+
+.header {
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.audio_player {
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.tags {
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.submit {
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+#player {
+  width: 80%;
+}
+
+#marking {
+  width: 600px;
+  margin: 0 auto;
+  color: red;
+  opacity: 0;
+}

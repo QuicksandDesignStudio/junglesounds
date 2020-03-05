@@ -17,19 +17,21 @@ def create_app(config_name):
 	flask_bcrypt.init_app(app)
 	api = Api(app)	
 	
+	#all the API end points setup
 	from .controller import sample_api
 	from .controller import category_api
 	from .controller import classification_api
-	from .controller import download	
+	from .controller import download
+	api.add_resource(sample_api.Sample, '/api/sample/<string:sample_id>')
+	api.add_resource(sample_api.SampleList, '/api/samples')
+	api.add_resource(download.SampleDownload, '/api/download/<string:file_name>')
+	api.add_resource(category_api.Category, '/api/category/<string:category_id>')
+	api.add_resource(category_api.CategoryList, '/api/categories')
+	api.add_resource(classification_api.Classification, '/api/classification/<string:classification_id>')
+	api.add_resource(classification_api.ClassificationList, '/api/classifications')
 
-	api.add_resource(sample_api.Sample, '/sample/<string:sample_id>')
-	api.add_resource(sample_api.SampleList, '/samples')
-	api.add_resource(download.SampleDownload, '/download/<string:file_name>')
-	api.add_resource(category_api.Category, '/category/<string:category_id>')
-	api.add_resource(category_api.CategoryList, '/categories')
-	api.add_resource(classification_api.Classification, '/classification/<string:classification_id>')
-	api.add_resource(classification_api.ClassificationList, '/classifications')
-
-	
+	#this is where the regular web gets started
+	app.app_context().push()
+	from app.main.controller import application
 
 	return app
