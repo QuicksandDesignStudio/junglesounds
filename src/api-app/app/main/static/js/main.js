@@ -6,11 +6,16 @@ let tagging = false;
 let hadlingKeyPress = true;
 let rowCount = 0;
 let tags = [];
+let categories = [];
+let BASE_URL = "http://127.0.0.1:5000/api/";
+let API_ENDPOINTS = {
+  categories: "categories"
+};
 
 let currentTagDetails = {
   startTime: 0.0,
   endTime: 0.0,
-  tag: "edit tag"
+  tag: null
 };
 
 let keys = {
@@ -30,6 +35,10 @@ $(document).ready(function() {
   $("body").focus(function(e) {
     hadlingKeyPress = true;
     console.log("here");
+  });
+  //get categories
+  $.get(BASE_URL + API_ENDPOINTS.categories, function(data, response) {
+    categories = data["categories"];
   });
 });
 
@@ -92,7 +101,6 @@ function AddTag() {
 function SetupValues(rowCount, startTime, endTime, tag) {
   $(`#${rowCount}_start_time`).val(startTime);
   $(`#${rowCount}_end_time`).val(endTime);
-  $(`#${rowCount}_tag`).val(tag);
 }
 
 function SetupFocusEvents(elementId) {
@@ -107,12 +115,6 @@ function SetupFocusEvents(elementId) {
       hadlingKeyPress = false;
     });
     $(`#${i}_end_time`).focusout(function() {
-      hadlingKeyPress = true;
-    });
-    $(`#${i}_tag`).focus(function() {
-      hadlingKeyPress = false;
-    });
-    $(`#${i}_tag`).focusout(function() {
       hadlingKeyPress = true;
     });
   }
@@ -138,7 +140,6 @@ function DeleteRow(rowId) {
     $(`#${currentTagId}_end_time`).attr("id", `${i}_end_time`);
     $(`#${currentTagId}_end_time`).attr("name", `${i}_end_time`);
     $(`#${currentTagId}_tag`).attr("id", `${i}_tag`);
-    $(`#${currentTagId}_tag`).attr("name", `${i}_tag`);
     $(`#${currentTagId}_row_tag`).text(i + 1);
     $(`#${currentTagId}_row_tag`).attr("id", `${i}_row_tag`);
     $(`#${currentTagId}_delete`).attr("onclick", `DeleteRow(${i})`);
@@ -176,21 +177,24 @@ function getTagRow(rowCount, startTime, endTime, tag) {
         </div>
     </td>
     <td>
-        <div class="input-group mb-3">
-            <input
-                type="text"
-                class="form-control"
-                placeholder="${tag}"
-                id="${rowCount}_tag"
-                name="${rowCount}_tag"
-            />
-        </div>
+      <select class="custom-select" id="${rowCount}_tag">
+        <option selected="true" disabled="disabled">Choose</option>
+        ${GetCategories()}
+      </select>
     </td>
     <td>
       <button type="button" class="btn btn-danger" id="${rowCount}_delete" onclick="DeleteRow(${rowCount})">Delete</button>
     </td>
   </tr>`;
   return tableRow;
+}
+
+function GetCategories() {
+  allCategories = "";
+  categories.forEach(function(category) {
+    allCategories += `<option value="${category["id"]}">${category["category"]}</option>`;
+  });
+  return allCategories;
 }
 
 function Submit() {
