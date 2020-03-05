@@ -14,18 +14,19 @@ parser.add_argument('slug')
 
 
 category_fields = {
-    'id':fields.Integer,
+    'id': fields.Integer,
     'category': fields.String,
-    'slug':fields.String
+    'slug': fields.String
 }
 
 category_list_fields = {
-    'categories':fields.List(fields.Nested(category_fields))
+    'categories': fields.List(fields.Nested(category_fields))
 }
+
 
 class Category(Resource):
     @marshal_with(category_fields)
-    def get(self, category_id):        
+    def get(self, category_id):
         c = category.Category.query.filter_by(id=category_id).first()
         if c:
             return c
