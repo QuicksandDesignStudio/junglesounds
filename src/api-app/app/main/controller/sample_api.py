@@ -7,6 +7,8 @@ from flask_restful import fields, marshal_with
 from app.main.start import db
 from app.main.model import category, user, sample, classification
 from app.main.helpers.utils import abort_if_doesnt_exist,  not_supported, getHashOfFile, resource_exists, deleteFile
+from app.main.helpers.constants import pagination_fields
+from app.main.helpers.constants import default_per_page, default_page
 
 import werkzeug
 import os
@@ -16,7 +18,7 @@ import uuid
 parser = reqparse.RequestParser()
 parser.add_argument('sample_audio', type=werkzeug.datastructures.FileStorage, location='files')
 parser.add_argument('no_of_reviews')
-parser.add_argument('limit')
+
 
 user_fields = {
     'id':fields.Integer,
@@ -48,6 +50,7 @@ sample_fields = {
 
 sample_list_fields = {
    'samples':fields.List(fields.Nested(sample_fields)),
+   'pagination': fields.Nested(pagination_fields)
 }
 
 
@@ -56,11 +59,7 @@ sample_list_fields = {
 class Sample(Resource):
     @marshal_with(sample_fields)
     def get(self, sample_id):        
-        s = sample.Sample.query.filter_by(id=sample_id).first()
-        if s:
-            return s
-        else:
-            abort_if_doesnt_exist(sample_id)
+        return sample.Sample.query.filter_by(id=sample_id).first_or_404()
 
     def delete(self, sample_id):
         not_supported()
@@ -74,15 +73,23 @@ class SampleList(Resource):
     def get(self):
         args = parser.parse_args()
         no_of_reviews = 0
-        limit = 10
-        if 'limit' in args and args['limit']:
-            limit = int(args['limit'])
+        per_page = default_per_page
+        page = default_page
+        pagination = None
+        if 'per_page' in args and args['per_page']:
+            per_page = int(args['per_page'])
+
+        if 'page' in args and args['page']:
+            page = int(args['page'])
 
         if 'no_of_reviews' in args and args['no_of_reviews']:
             no_of_reviews = int(args['no_of_reviews'])
-            return {"samples": sample.Sample.query.filter_by(no_of_reviews=no_of_reviews).limit(limit)}
-        
-        return {"samples": sample.Sample.query.filter().limit(limit)}           
+            pagination = sample.Sample.query.filter_by(no_of_reviews=no_of_reviews).paginate(page, per_page)
+                    
+        else:
+            pagination = sample.Sample.query.filter().paginate(page, per_page)
+
+        return {"samples": pagination.items, "pagination":{"has_next":pagination.has_next, "has_prev":pagination.has_prev, "page":pagination.page, "per_page":pagination.per_page, "pages":pagination.pages, "total":pagination.total }}
 
 
 

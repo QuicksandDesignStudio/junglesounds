@@ -70,8 +70,50 @@ Parameters
 
 Parameters
 
+```
 - no_of_reviews = how many classification reviews this sample has had. If you want to classifiy the freshly uploaded one, use 0. Default is None. it gets all
-- limit = how many to get, default 10
+- per_page = how many to get per page, default 20
+- page = which page
+```
+
+
+
+```
+{
+    "samples": [
+        {
+            "id": 1,
+            "sample_file_name": "36c0a8d3-875d-48a2-ae85-8afae8234473.wav",
+            "classifications": [
+                {
+                    "id": 1,
+                    "user": {
+                        "id": 2,
+                        "username": "romit"
+                    },
+                    "category": {
+                        "id": 0,
+                        "category": null,
+                        "slug": null
+                    },
+                    "start_time": 9.55,
+                    "end_time": 8.66
+                }
+            ],
+            "file_hash": "9abe9541a6e9b4f3a2f6ceaee095c594",
+            "no_of_reviews": 1
+        }
+    ],
+    "pagination": {
+        "has_next": false,
+        "has_prev": false,
+        "page": 1,
+        "per_page": 20,
+        "pages": 1,
+        "total": 1
+    }
+}
+```
 
 And
 
@@ -103,7 +145,52 @@ Parameters
 
 - GET <base_url>/api/classifications
 
-- Get the first 10 samples
+
+Parameters
+
+```
+- per_page = how many to get per page, default 20
+- page = which page
+```
+
+```
+{
+    "classifications": [
+        {
+            "id": 1,
+            "user": {
+                "id": 2,
+                "username": "romit"
+            },
+            "sample": {
+                "id": 1,
+                "sample_file_name": "36c0a8d3-875d-48a2-ae85-8afae8234473.wav",
+                "no_of_reviews": 1
+            },
+            "category": {
+                "id": 0,
+                "category": null,
+                "slug": null
+            },
+            "start_time": 9.55,
+            "end_time": 8.66
+        }
+    ],
+    "pagination": {
+        "has_next": false,
+        "has_prev": false,
+        "page": 1,
+        "per_page": 20,
+        "pages": 1,
+        "total": 1
+    }
+}
+```
+
+And
+
+- If the API retunes only the file name `sample_file_name`
+- Actual file url will be <base_url>/api/download<sample_file_name>
 
 
 ### Get a single sample

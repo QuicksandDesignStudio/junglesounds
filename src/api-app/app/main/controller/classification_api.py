@@ -6,6 +6,8 @@ from app.main.start import db
 from app.main.model import category, user, sample, classification
 
 from app.main.helpers.utils import abort_if_doesnt_exist,  not_supported, validation_error
+from app.main.helpers.constants import pagination_fields
+from app.main.helpers.constants import default_per_page, default_page
 
 parser = reqparse.RequestParser()
 parser.add_argument('sample_id')
@@ -44,6 +46,7 @@ classification_fields = {
 
 classification_list_fields = {
    'classifications':fields.List(fields.Nested(classification_fields)),
+   'pagination': fields.Nested(pagination_fields)
 }
 
 class Classification(Resource):
@@ -65,8 +68,17 @@ class Classification(Resource):
 class ClassificationList(Resource):
     @marshal_with(classification_list_fields)
     def get(self):
-        #TODO: We will improve this later
-        return {"classifications": classification.Classification.query.filter().limit(10)}
+        args = parser.parse_args()
+        per_page = default_per_page
+        page = default_page
+        if 'per_page' in args and args['per_page']:
+            per_page = int(args['per_page'])
+
+        if 'page' in args and args['page']:
+            page = int(args['page'])
+
+        pagination = classification.Classification.query.filter().paginate(page, per_page)
+        return {"classifications": pagination.items, "pagination":{"has_next":pagination.has_next, "has_prev":pagination.has_prev, "page":pagination.page, "per_page":pagination.per_page, "pages":pagination.pages, "total":pagination.total }}
 
     @marshal_with(classification_fields)
     def post(self):
