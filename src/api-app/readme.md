@@ -82,35 +82,31 @@ Parameters
 {
     "samples": [
         {
-            "id": 1,
-            "sample_file_name": "36c0a8d3-875d-48a2-ae85-8afae8234473.wav",
-            "classifications": [
-                {
-                    "id": 1,
-                    "user": {
-                        "id": 2,
-                        "username": "romit"
-                    },
-                    "category": {
-                        "id": 0,
-                        "category": null,
-                        "slug": null
-                    },
-                    "start_time": 9.55,
-                    "end_time": 8.66
-                }
-            ],
-            "file_hash": "9abe9541a6e9b4f3a2f6ceaee095c594",
-            "no_of_reviews": 1
+            "id": 3,
+            "sample_file_name": "3.wav",
+            "classifications": [],
+            "file_hash": "3",
+            "no_of_reviews": 0,
+            "recorded_time": null,
+            "recorded_location": null
+        },
+        {
+            "id": 4,
+            "sample_file_name": "5cbefa05-852c-4d63-81f8-9f5478ff7449.wav",
+            "classifications": [],
+            "file_hash": "8aef8bfe22c0ac432687548b01667884",
+            "no_of_reviews": 0,
+            "recorded_time": "Thu, 26 May 2016 11:42:00 -0000",
+            "recorded_location": "Bangalore"
         }
     ],
     "pagination": {
-        "has_next": false,
-        "has_prev": false,
-        "page": 1,
-        "per_page": 20,
-        "pages": 1,
-        "total": 1
+        "has_next": true,
+        "has_prev": true,
+        "page": 2,
+        "per_page": 2,
+        "pages": 4,
+        "total": 7
     }
 }
 ```
@@ -134,12 +130,15 @@ And
 
 Parameters
 
-- sample_id=
-- user_id=
-- category_id=
-- start_time=
-- end_time=
-
+```
+- sample_id = Integer ID
+- user_id = Integer ID
+- category_id = Integer ID
+- start_time = Float
+- end_time = Float
+- recorded_time = Format %Y-%m-%dT%H:%M:%S.%f%z like 2016-05-26T11:42:00.56+0530 
+- recorded_location = Sting
+```
 
 ### Get all Classification
 
@@ -165,7 +164,9 @@ Parameters
             "sample": {
                 "id": 1,
                 "sample_file_name": "36c0a8d3-875d-48a2-ae85-8afae8234473.wav",
-                "no_of_reviews": 1
+                "no_of_reviews": 1,
+	            "recorded_time": "Thu, 26 May 2016 11:42:00 -0000",
+    	        "recorded_location": "Bangalore"
             },
             "category": {
                 "id": 0,

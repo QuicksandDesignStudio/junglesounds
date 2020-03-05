@@ -13,11 +13,16 @@ from app.main.helpers.constants import default_per_page, default_page
 import werkzeug
 import os
 import uuid
+from datetime import datetime
 
 
 parser = reqparse.RequestParser()
 parser.add_argument('sample_audio', type=werkzeug.datastructures.FileStorage, location='files')
 parser.add_argument('no_of_reviews')
+parser.add_argument('page')
+parser.add_argument('per_page')
+parser.add_argument('recorded_time', type=lambda x: datetime.strptime(x,'%Y-%m-%dT%H:%M:%S.%f%z'))
+parser.add_argument('recorded_location')
 
 
 user_fields = {
@@ -45,7 +50,9 @@ sample_fields = {
     'sample_file_name':   fields.String,
     'classifications': fields.List(fields.Nested(classification_fields)),
     'file_hash': fields.String,
-    'no_of_reviews':fields.Integer
+    'no_of_reviews':fields.Integer,
+    'recorded_time': fields.DateTime,
+    'recorded_location': fields.String
 }
 
 sample_list_fields = {
@@ -97,6 +104,8 @@ class SampleList(Resource):
     def post(self):
         args = parser.parse_args()
         sample_audio = args['sample_audio']
+        recorded_location = args['recorded_location']
+        recorded_time = args['recorded_time']
 
         #create a unique name and save the file
         file_name = str(uuid.uuid4())+".wav"
@@ -118,6 +127,8 @@ class SampleList(Resource):
         s.sample_file_name = file_name
         s.no_of_reviews = no_of_reviews
         s.file_hash = file_hash
+        s.recorded_time = recorded_time
+        s.recorded_location = recorded_location
         db.session.add(s)
         db.session.commit()
         return s

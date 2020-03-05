@@ -15,6 +15,8 @@ parser.add_argument('category_id')
 parser.add_argument('start_time')
 parser.add_argument('end_time')
 parser.add_argument('user_id')
+parser.add_argument('page')
+parser.add_argument('per_page')
 
 
 user_fields = {
@@ -31,7 +33,9 @@ category_fields = {
 sample_fields = {
     'id':   fields.Integer,
     'sample_file_name':   fields.String,
-    'no_of_reviews':fields.Integer
+    'no_of_reviews':fields.Integer,
+    'recorded_time': fields.DateTime,
+    'recorded_location': fields.String    
 }
 
 classification_fields = {
