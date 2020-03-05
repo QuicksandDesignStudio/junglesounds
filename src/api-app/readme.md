@@ -17,7 +17,10 @@
 - data/sample_audio is the sample audio folder - in prod it will be S3
 - data/predict_audio is the audio folder which users have sent for prediction. This is not done yet
 
+# Web
+ All the web is defined inside the  `controller - application.py`. All the static files for the standard web - say images and js are in static folder. All the html templates are in templates folder
 
+ On dev the web is at http://localhost:5000/
 
 # API
 
@@ -33,7 +36,7 @@ We have not added an API to this yet. PLease add to the DB directly. As of now i
 
 ### Add category
 
-- POST <base_url>/categories
+- POST <base_url>/api/categories
 
 Parameters
 
@@ -42,19 +45,19 @@ Parameters
 
 ### Get all categories
 
-- GET <base_url>/categories
+- GET <base_url>/api/categories
 
 
 ### Get a single category
 
-- GET <base_url>/category/<category_id>
+- GET <base_url>/api/category/<category_id>
 
 
 ## Sample
 
 ### Add Sample
 
-- POST <base_url>/samples
+- POST <base_url>/api/samples
 
 Parameters
 
@@ -63,7 +66,7 @@ Parameters
 
 ### Get all Samples
 
-- GET <base_url>/samples
+- GET <base_url>/api/samples
 
 Parameters
 
@@ -73,19 +76,19 @@ Parameters
 And
 
 - If the API retunes only the file name `sample_file_name`
-- Actual file url will be <base_url>/download<sample_file_name>
+- Actual file url will be <base_url>/api/download<sample_file_name>
 
 
 ### Get a single sample
 
-- GET <base_url>/sample/<sample_id>
+- GET <base_url>/api/sample/<sample_id>
 
 
 
 ## Classification
 ### Add Classification
 
-- POST <base_url>/classifications
+- POST <base_url>/api/classifications
 
 Parameters
 
@@ -98,14 +101,14 @@ Parameters
 
 ### Get all Classification
 
-- GET <base_url>/classifications
+- GET <base_url>/api/classifications
 
 - Get the first 10 samples
 
 
 ### Get a single sample
 
-- GET <base_url>/classification/<classification_id>
+- GET <base_url>/api/classification/<classification_id>
 
 
 
