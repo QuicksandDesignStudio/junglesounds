@@ -1,6 +1,6 @@
 aeroplane
 vehicle
 honking
-generic bird
-generic barking
-people talking
+Generic Bird
+Generic Barking
+People Talking
