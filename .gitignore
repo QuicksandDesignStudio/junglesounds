@@ -2,7 +2,7 @@
 waves/
 audio/
 commands.txt
+dev.db
 audio_archive/
 junglesounds_venv/
 __pycache__
-dev.db
