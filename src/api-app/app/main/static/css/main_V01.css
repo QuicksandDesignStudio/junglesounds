@@ -27,6 +27,16 @@ body {
   margin-top: 50px;
 }
 
+.tag_button {
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.tag_button img {
+  width: 50px;
+}
+
 .underline {
   text-decoration: underline;
 }
@@ -40,4 +50,12 @@ body {
   margin: 0 auto;
   color: red;
   opacity: 0;
+}
+
+#tagging_text {
+  margin-left: 20px;
+}
+
+#tagging_button {
+  cursor: pointer;
 }

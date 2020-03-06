@@ -1,6 +1,5 @@
 let player;
 let tableBody;
-let marking;
 let playing = false;
 let tagging = false;
 let hadlingKeyPress = true;
@@ -28,7 +27,6 @@ let keys = {
 $(document).ready(function() {
   player = $("#player")[0];
   tableBody = $("#tag_table");
-  marking = $("#marking");
   $(document).keyup(function(e) {
     HandleKeyPress(e.which);
   });
@@ -64,15 +62,34 @@ function HandleKeyPress(keycode) {
         if (!tagging) {
           tagging = true;
           currentTagDetails.startTime = player.currentTime;
-          marking.css("opacity", "1");
+          $("#tagging_button").attr("src", "img/tagging.png");
+          $("#tagging_text").html("Stop Tagging");
         } else {
           tagging = false;
-          marking.css("opacity", "0");
+          $("#tagging_button").attr("src", "img/not_tagging.png");
+          $("#tagging_text").html("Start Tagging");
           if (currentTagDetails.startTime != player.currentTime) {
             currentTagDetails.endTime = player.currentTime;
             AddTag();
           }
         }
+    }
+  }
+}
+
+function TaggingButtonClick() {
+  if (!tagging) {
+    tagging = true;
+    currentTagDetails.startTime = player.currentTime;
+    $("#tagging_button").attr("src", "img/tagging.png");
+    $("#tagging_text").html("Stop Tagging");
+  } else {
+    tagging = false;
+    $("#tagging_button").attr("src", "img/not_tagging.png");
+    $("#tagging_text").html("Start Tagging");
+    if (currentTagDetails.startTime != player.currentTime) {
+      currentTagDetails.endTime = player.currentTime;
+      AddTag();
     }
   }
 }
