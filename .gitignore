@@ -3,6 +3,7 @@ waves/
 audio/
 commands.txt
 records.txt
+creds.secret
 dev.db
 audio_archive/
 junglesounds_venv/
