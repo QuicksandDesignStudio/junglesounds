@@ -172,9 +172,9 @@ def checkInput(inputStr):
                     index += 1
                     listenToAudio()
         else:
-            print("Enter 0 to start the program or play the current clip again")
-            print("Enter 1 to rate previous clip worthwhile")
-            print("Enter 2 to rate previous clip useless")
+            print("Enter 0 to start the program or play the last clip again")
+            print("Enter 1 to rate the clip you just heard worthwhile")
+            print("Enter 2 to rate the clip you just heard useless")
             print("Enter exit to leave")
     else:
         print("Please wait for this audio to finish playing")
@@ -183,10 +183,9 @@ def checkInput(inputStr):
 
 
 def read_kbd_input(inputQueue):
-    print('Ready for keyboard input:')
-    print("Enter 0 to start the program or play the current clip again")
-    print("Enter 1 to rate previous clip worthwhile")
-    print("Enter 2 to rate previous clip useless")
+    print("Enter 0 to start the program or play the last clip again")
+    print("Enter 1 to rate the clip you just heard worthwhile")
+    print("Enter 2 to rate the clip you just heard useless")
     print("Enter exit to leave")
     while (True):
         input_str = input()
