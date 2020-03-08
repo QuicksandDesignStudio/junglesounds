@@ -24,8 +24,6 @@ import wave
 import urllib.request
 import pyaudio
 import boto3
-from boto3.dynamodb import table
-from boto3.dynamodb.conditions import Key, Attr
 
 
 BASE_PATH = "https://junglesounds.s3-ap-southeast-1.amazonaws.com/raw_audio/"
@@ -54,31 +52,57 @@ session = boto3.Session(
     aws_secret_access_key=API_SECRET
 )
 
-# make a connection to the table
-dynamodb = session.resource('dynamodb')
-table = dynamodb.Table('sample_collection')
+# reference to s3 and the bucket
+s3 = session.resource('s3')
+raw_audio = s3.Bucket('junglesounds')
 
-# get all unparsed files from the table
-all_unparsed_files = table.scan(
-    FilterExpression=Key("validation").eq(0)
-)["Items"]
+# append all file samples names to the all_files array
+# this is super hacky. there must be a better way to do this
+for key in raw_audio.objects.all():
+    thisFile = key.key.split("/")
+    if(len(thisFile) > 1 and thisFile[0] == "raw_audio"):
+        if(thisFile[1] != ""):
+            all_files.append(thisFile[1])
 
-# print out a summary
+# get the records file with all parsed files listed
+request = urllib.request.Request(RECORDS_PATH)
+textrecords = urllib.request.urlopen(request)
+
+# save it as a temporary file
+FILE = "~temprecords~.txt"
+file = open(FILE, 'wb')
+file.write(textrecords.read())
+file.close()
+
+# open the temporary file and read in the lines
+with open(FILE) as f:
+    all_parsed_files = f.readlines()
+    all_parsed_files = [lines.strip() for lines in all_parsed_files]
+
+# create an array of all unparsed file names
+for i in range(len(all_files)):
+    fileInList = False
+    for fileName in all_parsed_files:
+        if(all_files[i] == fileName.split("-")[0]):
+            fileInList = True
+    if(fileInList == False):
+        all_unparsed_files.append(all_files[i])
+
+# print out the summary
+print("You have tagged {} files".format(len(all_parsed_files)))
 print("You have {} files left to tag".format(len(all_unparsed_files)))
 
+
 # Download the current index file from aws as a temporary file and play it
-
-
 def listenToAudio():
     try:
         global index, playing
         playing = True
-        print("Playing Audio Clip : {}".format(
-            all_unparsed_files[index]["sample_file_name"]))
+        print("Playing Audio Clip : {}".format(all_unparsed_files[index]))
 
         # get the raw audio data from aws
         request = urllib.request.Request("{}{}".format(
-            BASE_PATH, all_unparsed_files[index]["sample_file_name"]))
+            BASE_PATH, all_unparsed_files[index]))
         wavfile = urllib.request.urlopen(request)
 
         # save it as a temporary wave file
@@ -118,6 +142,7 @@ def listenToAudio():
         # catch keyboard interrupt and clean up
         print("You Interrupted")
         os.remove(fname)
+        os.remove(FILE)
         sys.exit(0)
 
 
@@ -131,21 +156,14 @@ def checkInput(inputStr):
             if inputStr == "0":
                 listenToAudio()
             elif inputStr == "1" or inputStr == "2":
-
-                # update the validation in the database
-                validation = int(inputStr)
-                fileName = all_unparsed_files[index]["sample_file_name"]
-                response = table.update_item(
-                    Key={
-                        'sample_file_name': fileName
-                    },
-                    UpdateExpression="set validation = :r",
-                    ExpressionAttributeValues={
-                        ':r': validation
-                    },
-                    ReturnValues="UPDATED_NEW"
-                )
-                print("Updated : {}".format(fileName))
+                # write to the temporary records file
+                activeFile = open(FILE, "a")
+                activeFile.writelines(
+                    "{}-{}\n".format(all_unparsed_files[index], inputStr))
+                activeFile.close()
+                # upload the temporary records file to aws and make it public
+                s3.meta.client.upload_file(
+                    FILE, 'junglesounds', 'analysis/records.txt', ExtraArgs={'ACL': 'public-read'})
 
                 if(index == len(all_unparsed_files) - 1):
                     print(
@@ -160,7 +178,6 @@ def checkInput(inputStr):
             print("Enter exit to leave")
     else:
         print("Please wait for this audio to finish playing")
-
 
 # Handle Keyboard Inputs
 
@@ -192,6 +209,7 @@ def main():
             if (inputQueue.qsize() > 0):
                 input_str = inputQueue.get()
                 if (input_str == EXIT_COMMAND):
+                    os.remove(FILE)
                     print("Exiting serial terminal.")
                     break
                 checkInput(input_str)
@@ -199,6 +217,7 @@ def main():
         print("End.")
     except KeyboardInterrupt:
         print("You Interrupted")
+        os.remove(FILE)
         sys.exit(0)
 
 
