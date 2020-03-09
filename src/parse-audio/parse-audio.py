@@ -46,12 +46,13 @@ print("Please wait while the data is fetched from the server")
 # get aws credentials
 with open(CREDS_PATH) as f:
     temp = f.readlines()
-    API_KEY, API_SECRET = [lines.strip() for lines in temp]
+    API_KEY, API_SECRET, REGION = [lines.strip() for lines in temp]
 
 # start AWS session
 session = boto3.Session(
     aws_access_key_id=API_KEY,
-    aws_secret_access_key=API_SECRET
+    aws_secret_access_key=API_SECRET,
+    region_name=REGION
 )
 
 # make a connection to the table
