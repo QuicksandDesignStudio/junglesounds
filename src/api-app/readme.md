@@ -22,6 +22,9 @@
 
  On dev the web is at http://localhost:5000/
 
+# Gunicorn
+gunicron -w 4 manage:app -b 127.0.0.1:5000
+
 # API
 
 ## User
