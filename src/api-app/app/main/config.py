@@ -4,6 +4,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
+    #will change in production
     SECRET_KEY = os.getenv('SECRET_KEY', 'mysuperecretkey')
     DEBUG = False
 
@@ -28,9 +29,8 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     DEBUG = False
-    DEBUG = True
-    DB_DIR = os.path.join(basedir, "../../data")
-    SAMPLE_AUDIO_UPLOAD_FOLDER = os.path.join(basedir, "../../data/sample_audio")
+    DB_DIR = "/home/ubuntu/production_data"
+    SAMPLE_AUDIO_UPLOAD_FOLDER = os.path.join(DB_DIR, "/sample_audio")
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(DB_DIR, 'production.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
