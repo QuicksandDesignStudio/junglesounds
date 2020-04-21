@@ -5,4 +5,5 @@ Flask-Script
 flask_testing
 flask-restful
 flask-cors
+flask-jwt-extended
 gunicorn

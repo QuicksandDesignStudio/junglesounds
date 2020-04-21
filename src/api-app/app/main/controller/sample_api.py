@@ -3,6 +3,8 @@ from flask import current_app as app
 
 from flask_restful import reqparse, abort, Api, Resource
 from flask_restful import fields, marshal_with
+from flask_jwt_extended import jwt_required
+
 
 from app.main.start import db
 from app.main.model import category, user, sample, classification
@@ -65,18 +67,22 @@ sample_list_fields = {
 
 class Sample(Resource):
     @marshal_with(sample_fields)
+    @jwt_required
     def get(self, sample_id):
         return sample.Sample.query.filter_by(id=sample_id).first_or_404()
 
+    @jwt_required
     def delete(self, sample_id):
         not_supported()
 
+    @jwt_required
     def put(self, sample_id):
         not_supported()
 
 
 class SampleList(Resource):
     @marshal_with(sample_list_fields)
+    @jwt_required
     def get(self):
         args = parser.parse_args()
         no_of_reviews = 0
@@ -100,6 +106,7 @@ class SampleList(Resource):
         return {"samples": pagination.items, "pagination": {"has_next": pagination.has_next, "has_prev": pagination.has_prev, "page": pagination.page, "per_page": pagination.per_page, "pages": pagination.pages, "total": pagination.total}}
 
     @marshal_with(sample_fields)
+    @jwt_required
     def post(self):
         args = parser.parse_args()
         sample_audio = args['sample_audio']

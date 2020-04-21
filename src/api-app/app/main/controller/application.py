@@ -4,6 +4,9 @@ from flask import send_from_directory
 from flask import render_template
 
 from flask_restful import reqparse, abort, Api, Resource
+from flask_jwt_extended import jwt_required
+
+
 
 # class Home(Resource):
 # 	def get(self):
@@ -16,5 +19,6 @@ def hello_world():
     return render_template('home.html')    
 
 @app.route('/classifier')
+@jwt_required
 def classifier():
     return render_template('classifier.html')    

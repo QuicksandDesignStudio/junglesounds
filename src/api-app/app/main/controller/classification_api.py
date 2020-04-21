@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import reqparse, abort, Api, Resource
 from flask_restful import fields, marshal_with
+from flask_jwt_extended import jwt_required
 
 from app.main.start import db
 from app.main.model import category, user, sample, classification
@@ -55,6 +56,7 @@ classification_list_fields = {
 
 class Classification(Resource):
     @marshal_with(classification_fields)
+    @jwt_required
     def get(self, classification_id):        
         s = classification.Classification.query.filter_by(id=classification_id).first()
         if s:
@@ -62,15 +64,18 @@ class Classification(Resource):
         else:
             abort_if_sample_doesnt_exist(classification_id)
 
+    @jwt_required
     def delete(self, classification_id):
         not_supported()
 
+    @jwt_required
     def put(self, classification_id):
         not_supported()
 
 
 class ClassificationList(Resource):
     @marshal_with(classification_list_fields)
+    @jwt_required
     def get(self):
         args = parser.parse_args()
         per_page = default_per_page
@@ -85,6 +90,7 @@ class ClassificationList(Resource):
         return {"classifications": pagination.items, "pagination":{"has_next":pagination.has_next, "has_prev":pagination.has_prev, "page":pagination.page, "per_page":pagination.per_page, "pages":pagination.pages, "total":pagination.total }}
 
     @marshal_with(classification_fields)
+    @jwt_required
     def post(self):
         args = parser.parse_args()
         sample_id = args['sample_id']

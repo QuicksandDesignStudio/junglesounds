@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import reqparse, abort, Api, Resource
 from flask_restful import fields, marshal_with
+from flask_jwt_extended import jwt_required
 
 from app.main.start import db
 from app.main.model import category, user, sample, classification
@@ -23,9 +24,9 @@ category_list_fields = {
     'categories': fields.List(fields.Nested(category_fields))
 }
 
-
 class Category(Resource):
     @marshal_with(category_fields)
+    @jwt_required
     def get(self, category_id):
         c = category.Category.query.filter_by(id=category_id).first()
         if c:
@@ -42,10 +43,12 @@ class Category(Resource):
 
 class CategoryList(Resource):
     @marshal_with(category_list_fields)
+    @jwt_required
     def get(self):
         return {"categories": category.Category.query.filter()}
 
     @marshal_with(category_fields)
+    @jwt_required
     def post(self):
         args = parser.parse_args()
         category_name = args['category']

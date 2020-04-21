@@ -1,5 +1,5 @@
 # Setup
-- Setup virtual env `python3 -m junglesounds_venv`
+- Setup virtual env `python3 -m venv junglesounds_venv`
 - Activate `source junglesounds_venv/bin/activate`
 - Install `pip install -r requirements`
 
